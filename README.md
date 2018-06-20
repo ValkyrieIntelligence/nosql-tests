@@ -38,7 +38,34 @@ For the complete setup with all databases we need several additional services:
     
 To install all databases and import the test dataset:
 
-    $ ./setupAll.sh
+    $ ./setupAll.sh  # This takes a long time, just run the setup script for neo4j instead!
+
+To install just Neo4j and import the test dataset:
+    
+    $ ./setupNeo4j.sh
+
+## Running just Neo4j tests
+
+Make sure that the systemd Neo4j server is stopped.
+
+    $ sudo systemctl stop neo4j
+
+Start the local neo4j server just for these tests.
+
+    $ ./startdb.sh neo4j &
+
+To run the suite of standard benchmarks on a dataset of 1.6 million nodes, execute `benchmark.js`.
+
+    $ node benchmark.js neo4j
+
+To build and query a synthetic database of 100,000,000 nodes, run the following:
+
+    $ ./runBigNeo4jTest.sh
+
+To stop the server and re-enable the system server, run the following:
+
+    $ ./stopdb.sh
+    $ sudo systemctl start neo4j
 
 ## Run single test
 
